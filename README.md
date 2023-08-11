@@ -1,8 +1,7 @@
 # CTkSpinbox
-Spinbox extension for customtkinter (add-on)
+Spinbox extension for customtkinter `(add-on)`
 
-<showcase_light>
-<showcase_dark>
+<img src = 'images/spinbox_showcase_dark.gif' width = '400'> <img  src = 'images/spinbox_showcase_light.gif' width = '400'>
 
 ## Installation
 ```
