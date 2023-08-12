@@ -78,12 +78,9 @@ class CTkSpinbox(ctk.CTkFrame):
                                        command = self.increment_counter)
         self.increment.place(relx = 0.97, rely = 0.5, anchor = 'e', relwidth = 0.30, relheight = 0.8)
 
+
         # scroll bind
-        # bind_all doesn't work :(
         self.bind('<MouseWheel>', self.scroll)
-        self.counter.bind('<MouseWheel>', self.scroll)
-        self.increment.bind('<MouseWheel>', self.scroll)
-        self.decrement.bind('<MouseWheel>', self.scroll)
 
     def decrement_counter(self):
         self.counter_var.set(max(self.min_value, self.counter_var.get()-self.step_value))
