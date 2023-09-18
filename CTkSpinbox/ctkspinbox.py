@@ -52,7 +52,6 @@ class CTkSpinbox(ctk.CTkFrame):
                                     textvariable = self.counter_var,
                                     font = self.font,
                                     text_color = self.text_color)
-        self.counter.place(relx = 0.5, rely = 0.5, anchor = 'center')
 
         # decrement button
         self.decrement = ctk.CTkButton(self,
@@ -64,7 +63,6 @@ class CTkSpinbox(ctk.CTkFrame):
                                        text_color_disabled = '#888',
                                        corner_radius = self.button_corner_radius,
                                        command = self.decrement_counter)
-        self.decrement.place(relx = 0.03, rely = 0.5, anchor = 'w', relwidth = 0.30, relheight = 0.8)
 
         # increment button
         self.increment = ctk.CTkButton(self,
@@ -76,8 +74,11 @@ class CTkSpinbox(ctk.CTkFrame):
                                        text_color_disabled = '#888',
                                        corner_radius = self.button_corner_radius,
                                        command = self.increment_counter)
+        
+        # layout
+        self.counter.place(relx = 0.5, rely = 0.5, anchor = 'center')
+        self.decrement.place(relx = 0.03, rely = 0.5, anchor = 'w', relwidth = 0.30, relheight = 0.8)
         self.increment.place(relx = 0.97, rely = 0.5, anchor = 'e', relwidth = 0.30, relheight = 0.8)
-
 
         # scroll bind
         self.bind('<MouseWheel>', self.scroll)
@@ -107,10 +108,10 @@ class CTkSpinbox(ctk.CTkFrame):
         if self.command:
             self.command(self.counter_var.get())
 
-    def get_count(self):
+    def get(self):
         return self.counter_var.get()
     
-    def set_count(self, value):
+    def set(self, value):
         self.counter_var.set(max(min(value, self.max_value), self.min_value))
     
     def disable(self):
@@ -146,6 +147,12 @@ class CTkSpinbox(ctk.CTkFrame):
                     exec(f"self.decrement.configure({value} = {new_value})")
                     if value == 'font':
                         exec(f"self.counter.configure({value} = {new_value})")
+
+        for value in ['min_value', 'max_value', 'step_value', 'scroll_value', 'variable']:
+            if value in kwargs:
+                new_value = kwargs.pop(value)
+                exec(f'self.{value} = {new_value}')
+
         if 'command' in kwargs:
             self.command = kwargs.pop('command')
 
