@@ -59,8 +59,8 @@ window.mainloop()
 - **.decrement_counter()** - decrements the counter value
 - **.increment_counter()** - increments the counter value
 - **.scroll(scroll)** - decrements/increments the counter value [use -1 to decrement and 1 to increment]
-- **.get_count()** - returns the counter value
-- **.set_count(value)** - sets the counter to a value
+- **.get()** - returns the counter value
+- **.set(value)** - sets the counter to a value
 - **.disable()** - disables the increment/decrement buttons
 - **.enable()** - enables the increment/decrement buttons
 - **.bind(key, function)** - executes the function when the event key is triggered
