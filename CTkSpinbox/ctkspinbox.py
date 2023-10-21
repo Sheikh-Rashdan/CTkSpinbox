@@ -1,7 +1,7 @@
 """
 Custom Spinbox For CustomTkinter
 Author : Sheikh Rashdan
-Version : 1.0
+Version : 1.0.
 """
 
 import customtkinter as ctk
@@ -27,7 +27,13 @@ class CTkSpinbox(ctk.CTkFrame):
                  corner_radius: int = 5,
                  button_corner_radius: int = 5,
                  command: any = None):
-        super().__init__(master, height = height, width = width, fg_color = fg_color, border_color = border_color, border_width = border_width, corner_radius = corner_radius)
+        super().__init__(master,
+                         height = height,
+                         width = width,
+                         fg_color = fg_color,
+                         border_color = border_color,
+                         border_width = border_width,
+                         corner_radius = corner_radius)
 
         # values
         self.start_value = max(min(start_value, max_value), min_value)       # start value must not exceed limits
@@ -45,7 +51,7 @@ class CTkSpinbox(ctk.CTkFrame):
         self.button_corner_radius = button_corner_radius 
         self.command = command
 
-        # counter label widget
+        # counter label
         self.counter_var = ctk.IntVar(value = self.start_value)
         self.counter = ctk.CTkLabel(self,
                                     text = 'Error',
@@ -75,10 +81,15 @@ class CTkSpinbox(ctk.CTkFrame):
                                        corner_radius = self.button_corner_radius,
                                        command = self.increment_counter)
         
+        # grid
+        self.rowconfigure(0, weight = 1, uniform = 'X')
+        self.columnconfigure((0,1,2), weight = 1, uniform = 'X')
+        self.grid_propagate(False)
+
         # layout
-        self.counter.place(relx = 0.5, rely = 0.5, anchor = 'center')
-        self.decrement.place(relx = 0.03, rely = 0.5, anchor = 'w', relwidth = 0.30, relheight = 0.8)
-        self.increment.place(relx = 0.97, rely = 0.5, anchor = 'e', relwidth = 0.30, relheight = 0.8)
+        self.decrement.grid(row = 0, column = 0, sticky = 'news', padx = (3,0), pady = 3)
+        self.counter.grid(row = 0, column = 1, sticky = 'news', padx = 0, pady = 3)
+        self.increment.grid(row = 0, column = 2, sticky = 'news', padx = (0,3), pady = 3)
 
         # scroll bind
         self.bind('<MouseWheel>', self.scroll)
