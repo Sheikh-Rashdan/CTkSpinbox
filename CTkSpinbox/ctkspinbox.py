@@ -1,7 +1,7 @@
 """
 Custom Spinbox For CustomTkinter
 Author : Sheikh Rashdan
-Version : 1.0.
+Version : 1.1
 """
 
 import customtkinter as ctk
@@ -83,13 +83,14 @@ class CTkSpinbox(ctk.CTkFrame):
         
         # grid
         self.rowconfigure(0, weight = 1, uniform = 'X')
-        self.columnconfigure((0,1,2), weight = 1, uniform = 'X')
+        self.columnconfigure((0,2), weight = 11, uniform = 'X')
+        self.columnconfigure(1, weight = 10, uniform = 'X')
         self.grid_propagate(False)
 
         # layout
-        self.decrement.grid(row = 0, column = 0, sticky = 'news', padx = (3,0), pady = 3)
-        self.counter.grid(row = 0, column = 1, sticky = 'news', padx = 0, pady = 3)
-        self.increment.grid(row = 0, column = 2, sticky = 'news', padx = (0,3), pady = 3)
+        self.decrement.grid(row = 0, column = 0, sticky = 'news', padx = (4,0), pady = 4)
+        self.counter.grid(row = 0, column = 1, sticky = 'news', padx = 0, pady = 4)
+        self.increment.grid(row = 0, column = 2, sticky = 'news', padx = (0,4), pady = 4)
 
         # scroll bind
         self.bind('<MouseWheel>', self.scroll)
