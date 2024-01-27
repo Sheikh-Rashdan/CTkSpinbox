@@ -1,7 +1,7 @@
 """
 Custom Spinbox For CustomTkinter
 Author : Sheikh Rashdan
-Version : 1.1
+Version : 1.2
 """
 
 import customtkinter as ctk
@@ -19,13 +19,15 @@ class CTkSpinbox(ctk.CTkFrame):
                  variable: any = None,
                  font: tuple = ('X', 20),
                  fg_color: str = None,
-                 border_color: str = None,
+                 border_color: str = ('#AAA', '#555'),
                  text_color: str = ('Black', 'White'),
                  button_color: str = ('#BBB','#444'),
                  button_hover_color: str = ('#AAA', '#555'),
-                 border_width: int = 1,
+                 border_width: int = 2,
                  corner_radius: int = 5,
                  button_corner_radius: int = 5,
+                 button_border_width: int = 2,
+                 button_border_color: str = ('#AAA', '#555'),
                  command: any = None):
         super().__init__(master,
                          height = height,
@@ -49,6 +51,8 @@ class CTkSpinbox(ctk.CTkFrame):
         self.button_color = button_color
         self.button_hover_color = button_hover_color
         self.button_corner_radius = button_corner_radius 
+        self.button_border_width = button_border_width
+        self.button_border_color = button_border_color
         self.command = command
 
         # counter label
@@ -68,6 +72,8 @@ class CTkSpinbox(ctk.CTkFrame):
                                        hover_color = self.button_hover_color,
                                        text_color_disabled = '#888',
                                        corner_radius = self.button_corner_radius,
+                                       border_width = self.button_border_width,
+                                       border_color = self.button_border_color,
                                        command = self.decrement_counter)
 
         # increment button
@@ -79,6 +85,8 @@ class CTkSpinbox(ctk.CTkFrame):
                                        hover_color = self.button_hover_color,
                                        text_color_disabled = '#888',
                                        corner_radius = self.button_corner_radius,
+                                       border_width = self.button_border_width,
+                                       border_color = self.button_border_color,
                                        command = self.increment_counter)
         
         # grid
@@ -144,7 +152,7 @@ class CTkSpinbox(ctk.CTkFrame):
     def configure(self, **kwargs):
         
         # conditions
-        for value in ['font', 'text_color', 'button_color', 'button_hover_color', 'button_corner_radius']:
+        for value in ['font', 'text_color', 'button_color', 'button_hover_color', 'button_corner_radius', 'button_border_color', 'button_border_width']:
             if value in kwargs:
                 new_value = kwargs.pop(value)
                 if value not in ['font', 'button_corner_radius']:
