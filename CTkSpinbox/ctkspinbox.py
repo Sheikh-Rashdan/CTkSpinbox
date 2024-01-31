@@ -1,7 +1,7 @@
 """
 Custom Spinbox For CustomTkinter
 Author : Sheikh Rashdan
-Version : 1.2
+Version : 1.3
 """
 
 import customtkinter as ctk
@@ -142,12 +142,12 @@ class CTkSpinbox(ctk.CTkFrame):
         self.increment.configure(state = 'enabled')
         self.decrement.configure(state = 'enabled')
 
-    def bind(self, key, function):
-        # bind_all doesn't work :(
-        super().bind(key, function)
-        self.counter.bind(key, function)
-        self.increment.bind(key, function)
-        self.decrement.bind(key, function)
+    def bind(self, key, function, add = True):
+
+        super().bind(key, function, add)
+        self.counter.bind(key, function, add)
+        self.increment.bind(key, function, add)
+        self.decrement.bind(key, function, add)
 
     def configure(self, **kwargs):
         
