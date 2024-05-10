@@ -1,9 +1,9 @@
 """
 CustomTkinter Spinbox
 Author : Sheikh Rashdan
-Version : 1.3
+Version : 1.4
 """
 
-__version__ : '1.3'
+__version__ : '1.4'
 
 from .ctkspinbox import CTkSpinbox
