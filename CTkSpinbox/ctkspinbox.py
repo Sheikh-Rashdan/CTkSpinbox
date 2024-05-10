@@ -1,8 +1,13 @@
 """
 Custom Spinbox For CustomTkinter
 Author : Sheikh Rashdan
-Version : 1.3
+Version : 1.4
 """
+
+'''CHANGELOG:
+ • 1.4:
+    - Fixed scrollwheel interaction when widget was disabled. (Reported By : RaymondWK)
+'''
 
 import customtkinter as ctk
 
@@ -28,6 +33,7 @@ class CTkSpinbox(ctk.CTkFrame):
                  button_corner_radius: int = 5,
                  button_border_width: int = 2,
                  button_border_color: str = ('#AAA', '#555'),
+                 state: str = 'normal',
                  command: any = None):
         super().__init__(master,
                          height = height,
@@ -53,6 +59,7 @@ class CTkSpinbox(ctk.CTkFrame):
         self.button_corner_radius = button_corner_radius 
         self.button_border_width = button_border_width
         self.button_border_color = button_border_color
+        self.state = state
         self.command = command
 
         # counter label
@@ -103,6 +110,10 @@ class CTkSpinbox(ctk.CTkFrame):
         # scroll bind
         self.bind('<MouseWheel>', self.scroll)
 
+        # update state
+        if self.state == 'disabled':
+            self.disable()
+
     def decrement_counter(self):
         self.counter_var.set(max(self.min_value, self.counter_var.get()-self.step_value))
         if self.variable:
@@ -118,15 +129,16 @@ class CTkSpinbox(ctk.CTkFrame):
             self.command(self.counter_var.get())
 
     def scroll(self, scroll):
-        dirn = 1 if scroll.delta>0 else -1
-        if dirn == -1:
-            self.counter_var.set(max(self.min_value, self.counter_var.get()-self.scroll_value))
-        else:
-            self.counter_var.set(min(self.max_value, self.counter_var.get()+self.scroll_value))
-        if self.variable:
-            self.variable.set(self.counter_var.get())
-        if self.command:
-            self.command(self.counter_var.get())
+        if self.state == 'normal':
+            dirn = 1 if scroll.delta>0 else -1
+            if dirn == -1:
+                self.counter_var.set(max(self.min_value, self.counter_var.get()-self.scroll_value))
+            else:
+                self.counter_var.set(min(self.max_value, self.counter_var.get()+self.scroll_value))
+            if self.variable:
+                self.variable.set(self.counter_var.get())
+            if self.command:
+                self.command(self.counter_var.get())
 
     def get(self):
         return self.counter_var.get()
@@ -135,10 +147,12 @@ class CTkSpinbox(ctk.CTkFrame):
         self.counter_var.set(max(min(value, self.max_value), self.min_value))
     
     def disable(self):
+        self.state = 'disabled'
         self.increment.configure(state = 'disabled')
         self.decrement.configure(state = 'disabled')
 
     def enable(self):
+        self.state = 'normal'
         self.increment.configure(state = 'enabled')
         self.decrement.configure(state = 'enabled')
 
@@ -175,5 +189,11 @@ class CTkSpinbox(ctk.CTkFrame):
 
         if 'command' in kwargs:
             self.command = kwargs.pop('command')
+        elif 'state' in kwargs:
+            self.state = kwargs.pop('state')
+            if self.state == 'normal':
+                self.enable()
+            elif self.state == 'disabled':
+                self.disable()
 
         super().configure(**kwargs)
