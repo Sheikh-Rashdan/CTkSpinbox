@@ -39,7 +39,7 @@ window.mainloop()
 
 | Parameter            | Description                                                                                   |
 | -------------------- | --------------------------------------------------------------------------------------------- |
-| **master**           | parent widget                                                                                 |
+| **master**     | parent widget                                                                                 |
 | width                | set width of the listbox                                                                      |
 | height               | set height of the listbox                                                                     |
 | start_value          | set starting value of the counter                                                             |
@@ -47,7 +47,7 @@ window.mainloop()
 | max_value            | set the highest value the counter can be set to                                               |
 | step_value           | set increment/decrement value of the buttons                                                  |
 | scroll_value         | set increment/decrement value of the scroll wheel                                             |
-| variable             | set**CTk/Tk** variable to the counter                                                         |
+| variable             | set**CTk/Tk** variable to the counter                                                   |
 | font                 | set the font of the counter and buttons                                                       |
 | fg_color             | set the foreground color of the spinbox frame                                                 |
 | border_color         | set the border color of the spinbox frame                                                     |
@@ -67,7 +67,7 @@ window.mainloop()
 - **.scroll(scroll)** - decrements/increments the counter value [use -1 to decrement and 1 to increment]
 - **.get()** - returns the counter value
 - **.set(value)** - sets the counter to a value
-- **.disable()** - disables the increment/decrement buttons
-- **.enable()** - enables the increment/decrement buttons
+- **.disable()** - disables the counter
+- **.enable()** - enables the counter
 - **.bind(key, function, add)** - executes the function when the event key is triggered
 - **.configure(kwargs)** - changes the parameters of the spinbox
