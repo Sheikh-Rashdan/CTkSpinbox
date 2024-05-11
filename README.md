@@ -2,8 +2,7 @@
 
 Spinbox extension for customtkinter `(add-on)`
 
-<img src="https://github.com/Sheikh-Rashdan/CTkSpinbox/raw/main/images/spinbox_showcase_dark.gif" width="100" height="100"/>
-<img src="https://github.com/Sheikh-Rashdan/CTkSpinbox/raw/main/images/spinbox_showcase_light.gif" width="100" height="100"/>
+<img src="https://github.com/Sheikh-Rashdan/CTkSpinbox/raw/main/images/spinbox_showcase_dark.gif" width="500" height="500"/><img src="https://github.com/Sheikh-Rashdan/CTkSpinbox/raw/main/images/spinbox_showcase_light.gif" width="500" height="500"/>
 
 ## Installation
 
