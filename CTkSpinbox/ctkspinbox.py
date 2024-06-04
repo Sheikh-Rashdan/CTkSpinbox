@@ -1,12 +1,16 @@
 """
 Custom Spinbox For CustomTkinter
 Author : Sheikh Rashdan
-Version : 1.4
+Version : 1.4.1
 """
 
 '''CHANGELOG:
  • 1.4:
     - Fixed scrollwheel interaction when widget was disabled. (Reported By : RaymondWK)
+ • 1.4.1:
+    - Added docstrings for functions.
+    - Fixed enabling the widget using ".enable()".
+    - Reorganized code.
 '''
 
 import customtkinter as ctk
@@ -115,55 +119,67 @@ class CTkSpinbox(ctk.CTkFrame):
             self.disable()
 
     def decrement_counter(self):
-        self.counter_var.set(max(self.min_value, self.counter_var.get()-self.step_value))
-        if self.variable:
-            self.variable.set(self.counter_var.get())
-        if self.command:
-            self.command(self.counter_var.get())
+        '''Decrements the value of the counter by the step value.'''
+        self.counter_var.set(self.counter_var.get()-self.step_value)
+        self.update_counter()
 
     def increment_counter(self):
-        self.counter_var.set(min(self.max_value, self.counter_var.get()+self.step_value))
-        if self.variable:
-            self.variable.set(self.counter_var.get())
-        if self.command:
-            self.command(self.counter_var.get())
+        '''Increments the value of the counter by the step value.'''
+        self.counter_var.set(self.counter_var.get()+self.step_value)
+        self.update_counter()
 
     def scroll(self, scroll):
+        '''Increments/Decrements the value of the counter by the scroll value depending on scroll direction.'''
         if self.state == 'normal':
             dirn = 1 if scroll.delta>0 else -1
-            if dirn == -1:
-                self.counter_var.set(max(self.min_value, self.counter_var.get()-self.scroll_value))
-            else:
-                self.counter_var.set(min(self.max_value, self.counter_var.get()+self.scroll_value))
-            if self.variable:
-                self.variable.set(self.counter_var.get())
-            if self.command:
-                self.command(self.counter_var.get())
+            if dirn == -1: self.counter_var.set(self.counter_var.get()-self.scroll_value)
+            else: self.counter_var.set(self.counter_var.get()+self.scroll_value)
+            self.update_counter()
 
     def get(self):
+        '''Returns the value of the counter.'''
         return self.counter_var.get()
     
     def set(self, value):
+        '''Sets the counter to a particular value.'''
         self.counter_var.set(max(min(value, self.max_value), self.min_value))
     
     def disable(self):
+        '''Disables the functionality of the counter.'''
         self.state = 'disabled'
         self.increment.configure(state = 'disabled')
         self.decrement.configure(state = 'disabled')
 
     def enable(self):
+        '''Enables the functionality of the counter.'''
         self.state = 'normal'
-        self.increment.configure(state = 'enabled')
-        self.decrement.configure(state = 'enabled')
+        self.increment.configure(state = 'normal')
+        self.decrement.configure(state = 'normal')
 
     def bind(self, key, function, add = True):
+        '''binds a key to a function.'''
 
         super().bind(key, function, add)
         self.counter.bind(key, function, add)
         self.increment.bind(key, function, add)
         self.decrement.bind(key, function, add)
 
+    def update_counter(self):
+        '''Updates the counter variable and calls the counter command.'''
+
+        self.limit_counter()
+        if self.variable: self.variable.set(self.counter_var.get())
+        if self.command: self.command(self.counter_var.get())
+
+    def limit_counter(self):
+        '''Limits the value of the counter within the minimum and maximum values.'''
+
+        counter_value = self.counter_var.get()
+        new_counter_value = max(min(counter_value, self.max_value), self.min_value)
+        self.counter_var.set(new_counter_value)
+
     def configure(self, **kwargs):
+        '''Update widget values.'''
         
         # conditions
         for value in ['font', 'text_color', 'button_color', 'button_hover_color', 'button_corner_radius', 'button_border_color', 'button_border_width']:
