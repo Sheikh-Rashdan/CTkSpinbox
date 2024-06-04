@@ -47,7 +47,7 @@ window.mainloop()
 | max_value            | set the highest value the counter can be set to                                               |
 | step_value           | set increment/decrement value of the buttons                                                  |
 | scroll_value         | set increment/decrement value of the scroll wheel                                             |
-| variable             | set**CTk/Tk** variable to the counter                                                   |
+| variable             | set **CTk/Tk** variable to the counter                                                   |
 | font                 | set the font of the counter and buttons                                                       |
 | fg_color             | set the foreground color of the spinbox frame                                                 |
 | border_color         | set the border color of the spinbox frame                                                     |
@@ -70,4 +70,6 @@ window.mainloop()
 - **.disable()** - disables the counter
 - **.enable()** - enables the counter
 - **.bind(key, function, add)** - executes the function when the event key is triggered
+- **.update_counter()** - updates counter variable and calls counter function.
+- **.limit_counter()** - restricts the value of the counter between the limits.
 - **.configure(kwargs)** - changes the parameters of the spinbox
